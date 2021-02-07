@@ -13,5 +13,4 @@
 
 # Dependency directories (remove the comment below to include it)
 # vendor/
-/.idea/dataSources/ea1e055c-234a-48e9-87fd-b6f649fd04db.xml
-/.idea/dataSources/ea1e055c-234a-48e9-87fd-b6f649fd04db/storage_v2/_src_/schema/information_schema.FNRwLQ.meta
+./idea/
