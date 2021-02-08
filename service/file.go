@@ -1,4 +1,4 @@
-package model
+package service
 
 import (
 	"database/sql"
@@ -6,6 +6,14 @@ import (
 
 	db "DStorage/db/mysql"
 )
+
+// TableFile : 文件表结构体
+type TableFile struct {
+	FileHash string
+	FileName sql.NullString
+	FileSize sql.NullInt64
+	FileAddr sql.NullString
+}
 
 // FileUploadFinished : 文件上传完成,保存meta
 func FileUploadFinished(fileHash string, fileName string, fileSize int64, fileAddr string) bool {
@@ -31,15 +39,8 @@ func FileUploadFinished(fileHash string, fileName string, fileSize int64, fileAd
 	return false
 }
 
-// TableFile : 文件表结构体
-type TableFile struct {
-	FileHash string
-	FileName sql.NullString
-	FileSize sql.NullInt64
-	FileAddr sql.NullString
-}
-
 // GetFileMeta : 从mysql获取文件元信息
+// fix method
 func GetFileMeta(fileHash string) (*TableFile, error) {
 	stmt, err := db.Conn().Prepare(
 		"select file_sha1,file_addr,file_name,file_size from tbl_file " +
@@ -50,9 +51,9 @@ func GetFileMeta(fileHash string) (*TableFile, error) {
 	}
 	defer stmt.Close()
 
-	tFile := TableFile{}
+	file := TableFile{}
 	err = stmt.QueryRow(fileHash).Scan(
-		&tFile.FileHash, &tFile.FileAddr, &tFile.FileName, &tFile.FileSize)
+		&file.FileHash, &file.FileAddr, &file.FileName, &file.FileSize)
 	if err != nil {
 		if err == sql.ErrNoRows {
 			// 查不到对应记录， 返回参数及错误均为nil
@@ -61,5 +62,5 @@ func GetFileMeta(fileHash string) (*TableFile, error) {
 		fmt.Println(err.Error())
 		return nil, err
 	}
-	return &tFile, nil
+	return &file, nil
 }

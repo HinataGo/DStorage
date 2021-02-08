@@ -6,7 +6,7 @@ package meta
 */
 
 import (
-	model "DStorage/model"
+	model "DStorage/service"
 )
 
 // FileMeta:文件元信息结构
