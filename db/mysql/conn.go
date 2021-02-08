@@ -6,14 +6,14 @@ import (
 	"log"
 	"os"
 
-	"DStorage/config"
+	"DStorage/config/db"
 )
 
 var mySQL *sql.DB
 
 // init : 初始化
 func init() {
-	mySQL, _ := sql.Open("mysql", config.MySQLSource)
+	mySQL, _ := sql.Open("mysql", db.MySQLSource)
 	mySQL.SetMaxOpenConns(1000)
 	err := mySQL.Ping()
 	if err != nil {
