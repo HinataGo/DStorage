@@ -22,8 +22,8 @@ func init() {
 	}
 }
 
-// MySQLConn : 连接数据库
-func MySQLConn() *sql.DB {
+// Conn : 连接数据库
+func Conn() *sql.DB {
 	return mySQL
 }
 
