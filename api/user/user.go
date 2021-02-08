@@ -116,14 +116,15 @@ func SignInHandlerPost(c *gin.Context) {
 func InfoUserHandler(c *gin.Context) {
 	// 1. 解析请求参数
 	username := c.Request.FormValue("username")
-	//	token := c.Request.FormValue("token")
+	token := c.Request.FormValue("token")
 
-	// // 2. 验证token是否有效
-	// isValidToken := IsTokenValid(token)
-	// if !isValidToken {
-	// 	w.WriteHeader(http.StatusForbidden)
-	// 	return
-	// }
+	// TODO 2. 验证token是否有效
+	isValidToken := IsTokenValid(token)
+	if !isValidToken {
+		c.JSON(http.StatusForbidden,
+			gin.H{})
+		return
+	}
 
 	// 3. 查询用户信息
 	user, err := service.GetUserInfo(username)
