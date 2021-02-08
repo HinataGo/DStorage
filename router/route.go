@@ -1,7 +1,9 @@
 package router
 
 import (
+	"DStorage/api/download"
 	"DStorage/api/fast_upload"
+	"DStorage/api/file"
 	"DStorage/api/part_upload"
 	"DStorage/api/upload"
 	"DStorage/api/user"
@@ -29,17 +31,22 @@ func Router() *gin.Engine {
 
 	// Use之后的所有handler都会经过拦截器进行token校验
 
-	// 文件存取接口
+	// 文件CRUD接口
 	router.GET("/file/upload", upload.GetUploadHandler)
 	router.POST("/file/upload", upload.PostUploadHandler)
-
 	router.GET("/file/upload/suc", upload.SucUploadHandler)
-	router.POST("/file/meta", upload.GetFileMetaHandler)
-	router.POST("/file/query", upload.FileQueryHandler)
-	router.GET("/file/download", upload.DownloadHandler)
-	router.POST("/file/update", upload.FileMetaUpdateHandler)
-	router.POST("/file/delete", upload.FileDeleteHandler)
-	router.POST("/file/downloadurl", upload.DownloadURLHandler)
+	// 查询文件接口
+	router.POST("/file/query", file.FileQueryHandler)
+	// 文件删除
+	router.POST("/file/delete", file.FileDeleteHandler)
+	// 元数据获取
+	router.POST("/file/meta", file.GetFileMetaHandler)
+	// 元数据更新
+	router.POST("/file/update", file.FileMetaUpdateHandler)
+
+	// 文件下载服务
+	router.GET("/file/download", download.DownloadHandler)
+	router.POST("/file/downloadurl", download.DownloadURLHandler)
 
 	// 秒传接口
 	router.POST("/file/fastupload", fast_upload.FastUploadHandler)
@@ -50,7 +57,7 @@ func Router() *gin.Engine {
 	router.POST("/file/mpupload/complete", part_upload.CompleteUploadHandler)
 
 	// 用户相关接口
-	router.POST("/model_user/info", user.InfoUserHandler)
+	router.POST("/user/info", user.InfoUserHandler)
 
 	return router
 }
