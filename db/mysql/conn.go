@@ -7,6 +7,7 @@ import (
 	"os"
 
 	"DStorage/config/db"
+	_ "github.com/go-sql-driver/mysql"
 )
 
 var mySQL *sql.DB
@@ -54,6 +55,7 @@ func ParseRows(rows *sql.Rows) []map[string]interface{} {
 func checkErr(err error) {
 	if err != nil {
 		log.Fatal(err)
+		panic(err)
 		// TODO 处理异常错误数据
 	}
 }
