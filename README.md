@@ -30,4 +30,4 @@
     |-- README.md
 ```
 ### start 1.0 version
-- [ ] 原生API,不使用框架
+- [ ] 基于Gin 快速开发第一版demo
