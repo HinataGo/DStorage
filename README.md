@@ -18,6 +18,7 @@
     |-- handler                     // 路由处理服务  
     |-- log                         // 日志服务       
     |-- meta                        // 文件元数据
+    |-- model                       // 数据库操作
     |-- mq                          // 消息队列
     |-- release                     // 版本
     |-- service                     // 服务处理
