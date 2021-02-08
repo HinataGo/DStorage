@@ -10,9 +10,6 @@
     |   |-- mysql                       // mysql数据存储
     |-- doc                         // 文档数据 & sql文件
     |-- encrypt                     // 数据加密
-    |-- storage                     // 文件存储
-    |   |-- download                    // 文件下载服务
-    |   |-- upload                      // 文件上传服务
     |--format                       // 格式化数据
     |   |--json                         // json数据格式化 
     |-- handler                     // 路由处理服务  
@@ -22,6 +19,8 @@
     |-- mq                          // 消息队列
     |-- release                     // 版本
     |-- service                     // 服务处理
+    |   |-- download                    // 文件下载服务
+    |   |-- upload                      // 文件上传服务
     |-- store                       // 存储配置
     |   |-- ceph            
     |   |-- oss
@@ -30,4 +29,5 @@
     |-- LICENSE                     
     |-- README.md
 ```
-- start 1.0 version
+### start 1.0 version
+- [ ] 原生API,不使用框架
