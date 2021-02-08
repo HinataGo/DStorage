@@ -1,4 +1,4 @@
-package model
+package service
 
 import (
 	"fmt"
@@ -17,8 +17,8 @@ type UserFile struct {
 	LastUpdateDate string
 }
 
-// OnUserFileUploadFinished : 更新用户文件表
-func OnUserFileUploadFinished(username, fileHash, fileName string, fileSize int64) bool {
+// UserFileUploadFinished : 更新用户文件表
+func UserFileUploadFinished(username, fileHash, fileName string, fileSize int64) bool {
 	stmt, err := db.Conn().Prepare(
 		"insert ignore into storage_user_file (`user_name`,`file_sha1`,`file_name`," +
 			"`file_size`,`upload_date`) values (?,?,?,?,?)")
