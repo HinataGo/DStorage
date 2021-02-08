@@ -1,23 +1,23 @@
-package model
+package service
 
 import (
-	"fmt"
-
 	db "DStorage/db/mysql"
+
+	"fmt"
 )
 
 // User : 用户表model
 type User struct {
-	Username       string
-	Email          string
-	Phone          string
-	SignupDate     string
-	LastActiveDate string
-	Status         int
+	Username       string `json:"username"`
+	Email          string `json:"email"`
+	Phone          string `json:"phone"`
+	SignupDate     string `json:"signup_date"`
+	LastActiveDate string `json:"last_active_date"`
+	Status         int    `json:"status"`
 }
 
-// UserSignup : 通过用户名及密码完成user表的注册操作
-func UserSignup(username string, passwd string) bool {
+// UserSignUp : 通过用户名及密码完成user表的注册操作
+func UserSignUp(username string, passwd string) bool {
 	stmt, err := db.Conn().Prepare(
 		"insert ignore into storage_user (`user_name`,`user_pwd`) values (?,?)")
 	if err != nil {
@@ -96,4 +96,22 @@ func GetUserInfo(username string) (User, error) {
 		return user, err
 	}
 	return user, nil
+}
+
+// UserExist : 查询用户是否存在
+func UserExist(username string) (bool, error) {
+
+	stmt, err := db.Conn().Prepare(
+		"select 1 from storage_user where user_name=? limit 1")
+	if err != nil {
+		fmt.Println(err.Error())
+		return false, err
+	}
+	defer stmt.Close()
+
+	rows, err := stmt.Query(username)
+	if err != nil {
+		return false, err
+	}
+	return rows.Next(), nil
 }
