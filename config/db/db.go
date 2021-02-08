@@ -1,4 +1,4 @@
-package config
+package db
 
 /*
 MySQLSource : 要连接的数据库源；
