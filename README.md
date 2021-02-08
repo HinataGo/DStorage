@@ -3,6 +3,9 @@
 ### File structure
 ```
 |-- DStorage
+    |-- api                         // 服务接口
+    |   |-- download                    // 文件下载服务
+    |   |-- upload                      // 文件上传服务
     |-- cmd                         // 执行脚本
     |-- config                      // 文件配置
     |-- router                      // 服务路由
@@ -15,15 +18,11 @@
     |-- handler                     // 路由处理服务  
     |-- log                         // 日志服务       
     |-- meta                        // 文件元数据
-    |-- model                       // 数据库操作
+    |-- service                     // 业务逻辑
     |-- mq                          // 消息队列
     |-- release                     // 版本
-    |-- service                     // 服务处理
-    |   |-- download                    // 文件下载服务
-    |   |-- upload                      // 文件上传服务
-    |-- store                       // 存储配置
-    |   |-- ceph            
-    |   |-- oss
+    |-- store                       // 存储配置           
+    |   |-- oss                         // 阿里云OSS
     |-- unit                        // 单元测试
     |-- .gitignore
     |-- LICENSE                     
