@@ -8,12 +8,12 @@ import (
 
 // User : 用户表model
 type User struct {
-	Username       string `json:"username"`
-	Email          string `json:"email"`
-	Phone          string `json:"phone"`
-	SignupDate     string `json:"signup_date"`
-	LastActiveDate string `json:"last_active_date"`
-	Status         int    `json:"status"`
+	Username       string
+	Email          string
+	Phone          string
+	SignupDate     string
+	LastActiveDate string
+	Status         int
 }
 
 // UserSignUp : 通过用户名及密码完成user表的注册操作
