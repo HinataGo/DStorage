@@ -3,7 +3,7 @@ package oss
 import (
 	"fmt"
 
-	"DStorage/config"
+	oss2 "DStorage/config/oss"
 	"github.com/aliyun/aliyun-oss-go-sdk/oss"
 )
 
@@ -14,8 +14,8 @@ func Client() *oss.Client {
 	if ossCli != nil {
 		return ossCli
 	}
-	ossCli, err := oss.New(config.OSSEndpoint,
-		config.OSSAccesskeyID, config.OSSAccessKeySecret)
+	ossCli, err := oss.New(oss2.OSSEndpoint,
+		oss2.OSSAccesskeyID, oss2.OSSAccessKeySecret)
 	if err != nil {
 		fmt.Println(err.Error())
 		return nil
@@ -27,7 +27,7 @@ func Client() *oss.Client {
 func Bucket() *oss.Bucket {
 	cli := Client()
 	if cli != nil {
-		bucket, err := cli.Bucket(config.OSSBucket)
+		bucket, err := cli.Bucket(oss2.OSSBucket)
 		if err != nil {
 			fmt.Println(err.Error())
 			return nil

@@ -95,7 +95,6 @@ func SignInHandlerPost(c *gin.Context) {
 	}
 
 	// 3. 登录成功后重定向到首页
-	// w.Write([]byte("http://" + r.Host + "/static/view/home.html"))
 	resp := json.RespMsg{
 		Code: 0,
 		Msg:  "OK",
@@ -119,7 +118,7 @@ func InfoUserHandler(c *gin.Context) {
 	token := c.Request.FormValue("token")
 
 	// TODO 2. 验证token是否有效
-	isValidToken := IsTokenValid(token)
+	isValidToken := encrypt.IsTokenValid(token)
 	if !isValidToken {
 		c.JSON(http.StatusForbidden,
 			gin.H{})
@@ -149,17 +148,6 @@ func GenToken(username string) string {
 	ts := fmt.Sprintf("%x", time.Now().Unix())
 	tokenPrefix := encrypt.MD5([]byte(username + ts + "_tokensalt"))
 	return tokenPrefix + ts[:8]
-}
-
-// IsTokenValid : token是否有效
-func IsTokenValid(token string) bool {
-	if len(token) != 40 {
-		return false
-	}
-	// TODO: 判断token的时效性，是否过期
-	// TODO: 从数据库表tbl_user_token查询username对应的token信息
-	// TODO: 对比两个token是否一致
-	return true
 }
 
 // ExistsUserHandler ： 查询用户是否存在
