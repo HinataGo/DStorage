@@ -1,0 +1,67 @@
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: Role
+metadata:
+  name: pod-viewer-role
+  namespace: default
+rules:
+- apiGroups: [""]
+  resources: ["pods"]
+  verbs: ["get", "watch","list","patch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: RoleBinding
+metadata:
+  name: pod-viewer-role-binding
+  namespace: default
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: pod-viewer-role
+subjects:
+- apiGroup: ""
+  kind: ServiceAccount
+  name: default
+  namespace: default
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-user
+  labels:
+    app: svc-user
+spec:
+  ports:
+  - port: 8080
+    protocol: TCP
+  selector:
+    app: svc-user
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: default
+  name: svc-user
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: svc-user
+  template:
+    metadata:
+      labels:
+        app: svc-user
+    spec:
+      containers:
+        - name: svc-user
+          command: [
+            "/user",
+            "--server_address=0.0.0.0:8080",
+            "--broker_address=0.0.0.0:10001",
+            "--registry=kubernetes",
+          ]
+          image: hub.fileserver.com/dstorage/user
+          imagePullPolicy: IfNotPresent
+          ports:
+          - containerPort: 8080
+            name: accounts-port
